@@ -5,66 +5,74 @@ from state import LearningState
 
 state = LearningState()
 
-topic = input("Enter Topic: ")
-state.current_topic = topic
-num_questions = int(input("How many questions required for your quiz?: "))
+while True:
+    print("\n=== Learning Assistant ===")
+    print("1. Explain Topic")
+    print("2. Take Quiz")
+    print("3. View Progress")
+    print("4. Exit")
 
-explanation = explain_topic(
-    state.current_topic
-)
+    choice = input("\nChoose: ")
 
-print("\n=== EXPLANATION ===")
-print(explanation)
+    if choice == "1":
+        topic = input("Enter Topic: ")
 
+        state.current_topic = topic
 
-for i in range(num_questions):
+        explanation = explain_topic(topic)
 
-    print(f"\n=== QUESTION {i+1} ===")
+        print("\n=== EXPLANATION ===")
+        print(explanation)
 
-    quiz = generate_quiz(
-        state.current_topic
-    )
+    elif choice == "2":
 
-    state.current_question = quiz.question
+        if not state.current_topic:
+            print("Please explain a topic first.")
+            continue
 
-    print(quiz.question)
+        quiz = generate_quiz(
+            state.current_topic
+        )
 
-    answer = input(
-        "\nYour Answer: "
-    )
+        state.current_question = quiz.question
 
-    result = evaluate_answer(
-        state.current_question,
-        answer
-    )
+        print("\n=== QUIZ ===")
+        print(quiz.question)
 
-    state.current_score += result.score
+        answer = input("\nYour Answer: ")
 
-    print("\nScore:", result.score)
+        result = evaluate_answer(
+            state.current_question,
+            answer
+        )
 
-    print("Feedback:")
-    print(result.feedback)
-    state.quiz_history.append(
-    {
-        "topic": state.current_topic,
-        "question": state.current_question,
-        "score": result.score
-    }
-)
+        state.current_score += result.score
 
-print("\n=== FINAL SCORE ===")
-print(f"{state.current_score}")
-print("Improvement:", result.improvement_area)
+        state.quiz_history.append(
+            {
+                "topic": state.current_topic,
+                "question": state.current_question,
+                "score": result.score
+            }
+        )
 
+        print("\nScore:", result.score)
+        print("Feedback:", result.feedback)
 
+    elif choice == "3":
 
-print("\n--- STATE ---")
+        print("\n=== PROGRESS ===")
+        print("Topic:", state.current_topic)
+        print("Total Score:", state.current_score)
 
-print(state.current_topic)
-print(state.current_question)
-print(state.current_score)
+        print("\nHistory:")
 
-print("\n=== HISTORY ===")
+        for item in state.quiz_history:
+            print(item)
 
-for item in state.quiz_history:
-    print(item)
+    elif choice == "4":
+        print("Goodbye!")
+        break
+
+    else:
+        print("Invalid choice.")
