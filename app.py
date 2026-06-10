@@ -14,7 +14,7 @@ if "state" not in st.session_state:
 state = st.session_state.state
 
 
-st.sidebar.title("Learning Assistant")
+st.sidebar.title("LangChain Learning Assistant")
 
 page = st.sidebar.radio(
     "Choose",
@@ -118,7 +118,7 @@ elif page == "Quiz":
                 st.session_state.quiz_result.feedback
             )
 
-            
+
 elif page == "Teach":
 
     topic = st.text_input(
