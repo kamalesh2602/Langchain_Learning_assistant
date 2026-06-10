@@ -1,6 +1,8 @@
 from config import model
 from schemas.quiz import QuizQuestion
 from langchain_core.messages import SystemMessage, HumanMessage
+
+
 quiz_model = model.with_structured_output(
     QuizQuestion
 )
