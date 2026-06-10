@@ -1,23 +1,46 @@
 from agents.explainer import explain_topic
 from agents.quiz import generate_quiz
 from agents.evaluator import evaluate_answer
+from state import LearningState
 
+state = LearningState()
 
-result = explain_topic("Python Integers")
-print(result)
+topic = input("Enter Topic: ")
+state.current_topic = topic
 
-quiz = generate_quiz("Python Lists")
-
-print(quiz)
-print(quiz.question)
-print(quiz.answer)
-
-
-result = evaluate_answer(
-    "What is OOP?",
-    "OOP is Object Oriented Programming"
+explanation = explain_topic(
+    state.current_topic
 )
 
-print(result.score)
-print(result.feedback)
-print(result.improvement_area)
+print("\n=== EXPLANATION ===")
+print(explanation)
+
+
+quiz = generate_quiz(
+    state.current_topic
+)
+state.current_question = quiz.question
+
+print("\n=== QUIZ ===")
+print(quiz.question)
+
+answer = input("\nYour Answer: ")
+
+result = evaluate_answer(
+    state.current_question,
+    answer
+)
+
+state.current_score += result.score
+
+print("\n=== RESULT ===")
+print("Score:", result.score)
+print("Feedback:", result.feedback)
+print("Improvement:", result.improvement_area)
+
+
+print("\n--- STATE ---")
+
+print(state.current_topic)
+print(state.current_question)
+print(state.current_score)

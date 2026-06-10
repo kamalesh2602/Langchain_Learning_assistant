@@ -9,14 +9,25 @@ def evaluate_answer(
     question: str,
     answer: str
 ):
-    return evaluation_model.invoke(
-        f"""
-        Question:
-        {question}
+   return evaluation_model.invoke(
+    [
+        SystemMessage(
+            content="""
+            You are an English evaluator.
 
-        Student Answer:
-        {answer}
+            Always respond in English.
+            """
+        ),
+        HumanMessage(
+            content=f"""
+            Question:
+            {question}
 
-        Evaluate it.
-        """
-    )
+            Student Answer:
+            {answer}
+
+            Evaluate it.
+            """
+        )
+    ]
+)
