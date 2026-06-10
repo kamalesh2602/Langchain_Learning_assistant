@@ -83,6 +83,10 @@ while True:
 
         print("\n=== PLAN ===")
         print(plan)
+        approval = input("\nApprove plan? (y/n): ")
+        if approval.lower() != "y":
+            print("Teaching cancelled.")
+            continue
 
         explanation = explain_topic(route.topic)
 
