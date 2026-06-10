@@ -14,6 +14,11 @@ def route_request(user_input: str):
         quiz
         progress
         exit
+        If the request does not match any action,
+return:
+
+action = unknown
+        Extract topic if present.
 
         User Request:
         {user_input}
