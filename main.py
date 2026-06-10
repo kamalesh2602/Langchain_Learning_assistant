@@ -44,18 +44,19 @@ for i in range(num_questions):
 
     print("Feedback:")
     print(result.feedback)
-
-print("\n=== FINAL SCORE ===")
-print(f"{state.current_score}")
-print("Improvement:", result.improvement_area)
-
-state.quiz_history.append(
+    state.quiz_history.append(
     {
         "topic": state.current_topic,
         "question": state.current_question,
         "score": result.score
     }
 )
+
+print("\n=== FINAL SCORE ===")
+print(f"{state.current_score}")
+print("Improvement:", result.improvement_area)
+
+
 
 print("\n--- STATE ---")
 
