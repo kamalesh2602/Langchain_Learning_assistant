@@ -1,4 +1,4 @@
-# Learning Assistant
+# LangChain Learning Assistant
 
 An AI-powered Learning Assistant built using LangChain, OpenRouter, and Streamlit.
 
