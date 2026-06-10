@@ -6,6 +6,39 @@ The project started as a CLI application and later evolved into a Streamlit web 
 
 ---
 
+## Setup and Run
+
+Clone the repository:
+
+```bash
+git clone https://github.com/kamalesh2602/Langchain_Learning_assistant
+cd learning-assistant
+```
+
+Create a virtual environment and install dependencies using UV:
+
+```bash
+uv sync
+```
+
+Create a `.env` file in the project root and add your OpenRouter API key:
+
+```env
+OPEN_ROUTER=your_openrouter_api_key
+```
+
+Run the CLI version:
+
+```bash
+uv run main.py
+```
+
+Run the Streamlit version:
+
+```bash
+uv run streamlit run app.py
+```
+
 # Features
 
 ## Explain Topics
