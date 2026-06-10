@@ -51,61 +51,171 @@ elif page == "Quiz":
 
     if st.button("Generate Quiz"):
 
-        quiz = generate_quiz(topic)
+        # Clear old result
+        st.session_state.pop(
+            "quiz_result",
+            None
+        )
 
         state.current_topic = topic
+
+        with st.spinner(
+            "Generating quiz..."
+        ):
+
+            quiz = generate_quiz(topic)
+
         state.current_question = quiz.question
 
-        st.session_state.quiz_generated = True
-        if state.current_question:
-            st.subheader("Question")
-            st.write(state.current_question)
-            answer = st.text_area("Your Answer")
-            if st.button("Submit Answer"):
+        st.session_state.quiz = quiz
 
-                result = evaluate_answer(state.current_question,answer)
+    if "quiz" in st.session_state:
 
-                state.current_score += result.score
+        st.subheader("Question")
 
-                state.quiz_history.append(
-                    {
-                        "topic": state.current_topic,
-                        "question": state.current_question,
-                        "score": result.score
-                    }
+        st.write(
+            st.session_state.quiz.question
+        )
+
+        answer = st.text_area(
+            "Your Answer",
+            key="quiz_answer"
+        )
+
+        if st.button(
+            "Submit Answer"
+        ):
+
+            with st.spinner(
+                "Evaluating answer..."
+            ):
+
+                result = evaluate_answer(
+                    st.session_state.quiz.question,
+                    answer
                 )
-                st.success(f"Score: {result.score}")
-                st.write(result.feedback)
 
+            state.current_score += result.score
+
+            state.quiz_history.append(
+                {
+                    "topic": state.current_topic,
+                    "question": st.session_state.quiz.question,
+                    "score": result.score
+                }
+            )
+
+            st.session_state.quiz_result = result
+
+        # Persist result after reruns
+        if "quiz_result" in st.session_state:
+
+            st.success(
+                f"Score: {st.session_state.quiz_result.score}"
+            )
+
+            st.write(
+                st.session_state.quiz_result.feedback
+            )
+
+            
 elif page == "Teach":
 
     topic = st.text_input(
-        "Topic"
+        "Topic",
+        value=state.current_topic or ""
     )
 
-    if st.button("Teach Me"):
+    if st.button("Generate Plan"):
 
         state.current_topic = topic
 
-        plan = create_plan(topic)
+        with st.spinner("Creating learning plan..."):
 
-        st.subheader("Plan")
+            plan = create_plan(topic)
 
-        st.write(plan)
+        st.session_state.plan = plan
+        st.session_state.approved = False
 
-        explanation = explain_topic(topic)
+    if "plan" in st.session_state:
+
+        st.subheader("Learning Plan")
+
+        st.write(
+            st.session_state.plan
+        )
+
+        if st.button("Approve Plan"):
+
+            st.session_state.approved = True
+
+    if st.session_state.get(
+        "approved",
+        False
+    ):
+
+        if "teach_explanation" not in st.session_state:
+
+            with st.spinner(
+                "Preparing lesson..."
+            ):
+
+                explanation = explain_topic(
+                    state.current_topic
+                )
+
+                quiz = generate_quiz(
+                    state.current_topic
+                )
+
+            st.session_state.teach_explanation = explanation
+            st.session_state.teach_quiz = quiz
 
         st.subheader("Explanation")
 
-        st.write(explanation)
-
-        quiz = generate_quiz(topic)
-
-        state.current_question = quiz.question
+        st.write(
+            st.session_state.teach_explanation
+        )
 
         st.subheader("Quiz")
 
-        st.write(quiz.question)
+        st.write(
+            st.session_state.teach_quiz.question
+        )
+
+        answer = st.text_area(
+            "Your Answer",
+            key="teach_answer"
+        )
+
+        if st.button(
+            "Submit Teach Quiz"
+        ):
+
+            with st.spinner(
+                "Evaluating answer..."
+            ):
+
+                result = evaluate_answer(
+                    st.session_state.teach_quiz.question,
+                    answer
+                )
+
+            state.current_score += result.score
+
+            state.quiz_history.append(
+                {
+                    "topic": state.current_topic,
+                    "question": st.session_state.teach_quiz.question,
+                    "score": result.score
+                }
+            )
+
+            st.success(
+                f"Score: {result.score}"
+            )
+
+            st.write(result.feedback)
 
 elif page == "Progress":
 
