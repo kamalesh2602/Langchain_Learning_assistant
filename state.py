@@ -3,3 +3,4 @@ class LearningState:
         self.current_topic = None
         self.current_question = None
         self.current_score = 0
+        self.quiz_history = []
