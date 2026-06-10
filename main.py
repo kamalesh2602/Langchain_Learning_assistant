@@ -5,9 +5,14 @@ from state import LearningState
 from agents.router import route_request
 from agents.planner import create_plan
 from agents.progress import analyze_progress
-
+from middleware.logger import log_request
 
 state = LearningState()
+
+#logging middleware demo
+def process_request(user_input):
+    log_request(user_input)
+    return user_input
 
 while True:
     print("\n=== Learning Assistant ===")
@@ -17,9 +22,9 @@ while True:
     print("3. View Progress")
     print("4. Exit")
 
-    query = input("\n>>>")
+    
+    query = process_request(input("\n>>>"))
     route = route_request(query)
-
 
     if route.action == "explain":
 
