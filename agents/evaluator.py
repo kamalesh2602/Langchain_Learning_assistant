@@ -6,10 +6,7 @@ evaluation_model = model.with_structured_output(
     Evaluation
 )
 
-def evaluate_answer(
-    question: str,
-    answer: str
-):
+def evaluate_answer(question: str,answer: str):
    return evaluation_model.invoke(
     [
         SystemMessage(
