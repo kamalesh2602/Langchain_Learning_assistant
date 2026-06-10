@@ -14,6 +14,7 @@ def process_request(user_input):
     log_request(user_input)
     return user_input
 
+
 while True:
     print("\n=== Learning Assistant ===")
     print("0. Teach Topic")
