@@ -4,6 +4,7 @@ from agents.evaluator import evaluate_answer
 from state import LearningState
 from agents.router import route_request
 from agents.planner import create_plan
+from agents.progress import analyze_progress
 
 
 state = LearningState()
@@ -116,11 +117,16 @@ while True:
 
 
     elif route.action == "progress":
-        print(f"Topic: {state.current_topic}")
+        from agents.progress import analyze_progress
 
-        print(f"Score: {state.current_score}")
+        result = analyze_progress(
+    total_score=state.current_score,
+    questions_attempted=len(
+        state.quiz_history
+    )
+)
 
-        print(state.quiz_history)
+        print(result)
         
 
     elif route.action == "exit":
