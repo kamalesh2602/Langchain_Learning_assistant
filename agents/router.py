@@ -13,14 +13,27 @@ def route_request(user_input: str):
         explain
         quiz
         progress
+        teach
         exit
         If the request does not match any action,
 return:
 
 action = unknown
+
+    If user says:
+
+"Teach me Python Lists"
+"Teach Python OOP"
+"Help me learn dictionaries"
+
+return:
+
+action = teach
+topic = extracted topic
         Extract topic if present.
 
         User Request:
         {user_input}
         """
     )
+
