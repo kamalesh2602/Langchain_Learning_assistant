@@ -1,21 +1,19 @@
 from config import model
-from langchain_core.messages import SystemMessage,HumanMessage
+from langchain_core.messages import HumanMessage,SystemMessage
+def explain_topic(topic:str):
+    response = model.invoke(
+       [
+    SystemMessage(
+        content="""
+        You are an expert programming tutor.
 
-def generate_quiz(topic: str):
-    return quiz_model.invoke(
-        [
-            SystemMessage(
-                content="""
-                You are an English quiz generator.
-
-                Always respond in English.
-                """
-            ),
-            HumanMessage(
-                content=f"""
-                Generate one quiz question
-                about {topic}.
-                """
-            )
-        ]
+        Explain clearly.
+        Use English.
+        Assume beginner level.
+        """
+    ),
+    HumanMessage(
+        content=f"Explain {topic}"
     )
+])
+    return response.content

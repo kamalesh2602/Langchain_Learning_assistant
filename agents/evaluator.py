@@ -1,5 +1,6 @@
 from config import model
 from schemas.evaluation import Evaluation
+from langchain_core.messages import SystemMessage , HumanMessage
 
 evaluation_model = model.with_structured_output(
     Evaluation
