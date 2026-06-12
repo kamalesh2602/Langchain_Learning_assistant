@@ -30,7 +30,7 @@ page = st.sidebar.radio(
 # ---------------- Home ----------------
 if page == "Home":
 
-    st.title("🎓 AI Learning Assistant")
+    st.title("🎓 LangChain Learning Assistant")
 
     st.markdown("""
     Welcome to the AI Learning Assistant, a multi-agent educational platform
