@@ -82,9 +82,6 @@ if page == "Home":
 
     st.info("Select a feature from the sidebar to begin learning.")
 
-    st.markdown("---")
-    st.caption("Built using LangChain and OpenRouter")
-
 
 elif page == "Explain":
 
@@ -293,3 +290,7 @@ elif page == "Progress":
     st.subheader("History")
 
     st.json(state.quiz_history)
+
+st.markdown("---")
+st.caption("Built using LangChain and OpenRouter")
+
