@@ -19,6 +19,7 @@ st.sidebar.title("LangChain Learning Assistant")
 page = st.sidebar.radio(
     "Choose",
     [
+        "Home",
         "Explain",
         "Quiz",
         "Teach",
@@ -26,7 +27,66 @@ page = st.sidebar.radio(
     ]
 )
 
-if page == "Explain":
+# ---------------- Home ----------------
+if page == "Home":
+
+    st.title("🎓 AI Learning Assistant")
+
+    st.markdown("""
+    Welcome to the AI Learning Assistant, a multi-agent educational platform
+    designed to help learners understand concepts, test knowledge, and track progress.
+
+    The application leverages LangChain, OpenRouter, and specialized AI agents
+    to create a personalized learning experience.
+    """)
+
+    st.subheader("✨ Features")
+
+    st.markdown("""
+    📖 **Topic Explainer**
+    - Get clear explanations for any topic.
+
+    📝 **Quiz Generator**
+    - Generate quizzes to test your understanding.
+
+    ✅ **Answer Evaluator**
+    - Receive AI-powered feedback on your responses.
+
+    📅 **Study Planner**
+    - Create personalized learning plans.
+
+    📊 **Progress Analysis**
+    - Track strengths, weaknesses, and improvement areas.
+    """)
+
+    st.subheader("🛠️ Tech Stack")
+
+    st.markdown("""
+    - LangChain
+    - OpenRouter
+    - Streamlit
+    - Python
+    - Multi-Agent Architecture
+    """)
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Agents", "5")
+
+    with col2:
+        st.metric("LLM Provider", "OpenRouter")
+
+    with col3:
+        st.metric("UI", "Streamlit")
+
+    st.info("Select a feature from the sidebar to begin learning.")
+
+    st.markdown("---")
+    st.caption("Built using LangChain and OpenRouter")
+
+
+elif page == "Explain":
 
     topic = st.text_input(
         "Enter Topic"
