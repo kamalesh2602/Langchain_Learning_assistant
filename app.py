@@ -291,6 +291,4 @@ elif page == "Progress":
 
     st.json(state.quiz_history)
 
-st.markdown("---")
-st.caption("Built using LangChain and OpenRouter")
 
